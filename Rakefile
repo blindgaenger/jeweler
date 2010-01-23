@@ -13,12 +13,9 @@ Jeweler::Tasks.new do |gem|
   gem.files.include %w(lib/jeweler/templates/.document lib/jeweler/templates/.gitignore)
 
   gem.add_dependency "git", ">= 1.2.5"
-  gem.add_dependency "rubyforge", ">= 2.0.0"
   gem.add_dependency "gemcutter", ">= 0.1.0"
 
-  gem.rubyforge_project = "pickles"
-
-  gem.add_development_dependency "thoughtbot-shoulda"
+  gem.add_development_dependency "shoulda"
   gem.add_development_dependency "mhennemeyer-output_catcher"
   gem.add_development_dependency "rr"
   gem.add_development_dependency "mocha"

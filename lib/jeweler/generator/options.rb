@@ -10,7 +10,6 @@ class Jeweler
         @orig_args = args.clone
         self[:testing_framework]       = :shoulda
         self[:documentation_framework] = :rdoc
-        self[:gemcutter]               = true
 
         git_config = Git.global_config
         self[:user_name]       = ENV['GIT_AUTHOR_NAME']  || ENV['GIT_COMMITTER_NAME']  || git_config['user.name']
@@ -60,6 +59,10 @@ class Jeweler
             self[:testing_framework] = :riot
           end
 
+          o.on('--shindo', 'generate shindo tests') do
+            self[:testing_framework] = :shindo
+          end
+
           o.separator ""
 
           o.on('--cucumber', 'generate cucumber stories in addition to the other tests') do
@@ -77,14 +80,6 @@ class Jeweler
           end
 
           o.separator ""
-
-          o.on('--[no-]gemcutter', 'setup project for gemcutter') do |v|
-            self[:gemcutter] = v
-          end
-
-          o.on('--rubyforge', 'setup project for rubyforge') do
-            self[:rubyforge] = true
-          end
 
           o.on('--summary [SUMMARY]', 'specify the summary of the project') do |summary|
             self[:summary] = summary

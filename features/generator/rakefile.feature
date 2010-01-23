@@ -108,16 +108,6 @@ Feature: generated Rakefile
     And Rakefile requires 'roodi_task'
     And Rakefile instantiates a RoodiTask
 
-  Scenario: no rubyforge
-    Given I do not want rubyforge setup
-    When I generate a testunit project named 'the-perfect-gem' that is 'zomg, so good'
-    Then Rakefile does not instantiate a Jeweler::RubyforgeTasks
-
-  Scenario: rubyforge
-    Given I want rubyforge setup
-    When I generate a testunit project named 'the-perfect-gem' that is 'zomg, so good'
-    Then Rakefile instantiates a Jeweler::RubyforgeTasks
-
   Scenario: yard
     Given I want to use yard instead of rdoc
     When I generate a testunit project named 'the-perfect-gem' that is 'zomg, so good'
@@ -135,17 +125,8 @@ Feature: generated Rakefile
     And Rakefile does not instantiate a YARD::Rake::YardocTask
     And Rakefile instantiates a Rake::RDocTask.new
 
-  Scenario: rubyforge and yard
-    Given I want to use yard instead of rdoc
-    And I want rubyforge setup
-    When I generate a testunit project named 'the-perfect-gem' that is 'zomg, so good'
-    Then Rakefile instantiates a Jeweler::RubyforgeTasks
-    And Rakefile has 'yardoc' for the Jeweler::RubyforgeTasks doc_task
-
-  Scenario: rubyfoge and doc
-    Given I want to use rdoc instead of yard
-    And I want rubyforge setup
-    And I want rubyforge setup
-    When I generate a testunit project named 'the-perfect-gem' that is 'zomg, so good'
-    Then Rakefile instantiates a Jeweler::RubyforgeTasks
-    And Rakefile has 'rdoc' for the Jeweler::RubyforgeTasks doc_task
+  Scenario: shindo
+    When I generate a shindo project named 'the-perfect-gem' that is 'zomg, so good'
+    And 'Rakefile' requires 'shindo/rake'
+    And Rakefile instantiates a Shindo::Rake.new
+    And Rakefile has "tests" as the default task

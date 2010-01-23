@@ -22,14 +22,6 @@ Given /^I want roodi$/ do
   @use_roodi = true
 end
 
-And /^I do not want rubyforge setup$/ do
-  @use_rubyforge = false
-end
-
-And /^I want rubyforge setup$/ do
-  @use_rubyforge = true
-end
-
 Given /^I want to use yard instead of rdoc$/ do
   @documentation_framework = "yard"
 end
@@ -83,7 +75,6 @@ When /^I generate a (.*)project named '((?:\w|-|_)+)' that is '([^']*)' and desc
                '--description', @description,
                 @use_cucumber ? '--cucumber' : nil,
                 @testing_framework ? "--#{@testing_framework}" : nil,
-                @use_rubyforge ? '--rubyforge' : nil,
                 @use_roodi ? '--roodi' : nil,
                 @use_reek ? '--reek' : nil,
                 @documentation_framework ? "--#{@documentation_framework}" : nil,
@@ -196,6 +187,12 @@ Then /^'(.*)' should contextualize '(.*)'$/ do |file, describe_name|
   @spec_content ||= File.read((File.join(@working_dir, @name, file)))
 
   assert_match %Q{context "#{describe_name}" do}, @spec_content
+end
+
+Then /^'(.*)' should have tests for '(.*)'$/ do |file, describe_name|
+  @tests_content ||= File.read((File.join(@working_dir, @name, file)))
+
+  assert_match %Q{Shindo.tests("#{describe_name}") do}, @tests_content
 end
 
 Then /^'(.*)' requires '(.*)'$/ do |file, lib|

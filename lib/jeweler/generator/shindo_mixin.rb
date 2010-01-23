@@ -1,40 +1,42 @@
 class Jeweler
   class Generator
-    module ShouldaMixin
+    module ShindoMixin
       def self.extended(generator)
-        generator.development_dependencies << ["shoulda", ">= 0"]
+        generator.development_dependencies << ["shindo", ">= 0"]
       end
 
       def default_task
-        'test'
+        'tests'
       end
 
       def feature_support_require
-        'test/unit/assertions'
+        # 'test/unit/assertions'
+        nil
       end
 
       def feature_support_extend
-        'Test::Unit::Assertions'
+        # 'Test::Unit::Assertions'
+        nil
       end
 
       def test_dir
-        'test'
+        'tests'
       end
 
       def test_task
-        'test'
+        'tests'
       end
 
       def test_pattern
-        'test/**/test_*.rb'
+        'tests/**/*_tests.rb'
       end
 
       def test_filename
-        "test_#{require_name}.rb"
+        "#{require_name}_tests.rb"
       end
 
       def test_helper_filename
-        "helper.rb"
+        "tests_helper.rb"
       end
 
     end
